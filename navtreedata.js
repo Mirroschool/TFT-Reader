@@ -25,10 +25,6 @@
 var NAVTREE =
 [
   [ "Mirroschool", "index.html", [
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ]
-    ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
     ] ]
@@ -37,7 +33,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_analog_button_8h_source.html"
+"_t_f_t-_reader_8ino_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
