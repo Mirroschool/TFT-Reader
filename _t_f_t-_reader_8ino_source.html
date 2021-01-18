@@ -85,78 +85,80 @@ $(document).ready(function(){initNavTree('_t_f_t-_reader_8ino_source.html',''); 
 <div class="title">TFT-Reader.ino</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;AnalogButton.h&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;TFTDisplay.h&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;TFTGUI.h&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;SD.h&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// Button pins</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define BTN_ANALOG_PIN A0</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_DOWN 674</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_SELECT 1024</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_UP 859</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// Chip Select pin for SD-card reader</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define PIN_SD_CS D1</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define TFT_CS    D2</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define TFT_RST   D3</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#define TFT_DC    D4 </span></div>
+<a href="_t_f_t-_reader_8ino.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;AnalogButton.h&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;TFTDisplay.h&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;TFTGUI.h&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SD.h&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define BTN_ANALOG_PIN A0</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_DOWN 674</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_SELECT 1024</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define ANALOG_VAL_BTN_UP 859</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// Button instances construction</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;AnalogButton btnUp(BTN_ANALOG_PIN, ANALOG_VAL_BTN_UP);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;AnalogButton btnSelect(BTN_ANALOG_PIN, ANALOG_VAL_BTN_SELECT);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;AnalogButton btnDown(BTN_ANALOG_PIN, ANALOG_VAL_BTN_DOWN);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;Adafruit_ILI9341 ili9341 = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;TFTDisplay tft(240, 320, &amp;ili9341, &amp;u8g2_for_adafruit_gfx);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;TFTGUI menu(tft);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">void</span> setup() {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="comment">// put your setup code here, to run once:</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  Serial.begin(9600);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  SD.begin(PIN_SD_CS);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  tft.begin();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  menu.begin();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="_t_f_t-_reader_8ino.html#aa30910e372ddbd6b08bf8be280af2600">   19</a></span>&#160;<span class="preprocessor">#define PIN_SD_CS D1 </span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define TFT_CS    D2</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define TFT_RST   D3</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define TFT_DC    D4 </span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;AnalogButton btnUp(BTN_ANALOG_PIN, ANALOG_VAL_BTN_UP);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;AnalogButton btnSelect(BTN_ANALOG_PIN, ANALOG_VAL_BTN_SELECT);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;AnalogButton btnDown(BTN_ANALOG_PIN, ANALOG_VAL_BTN_DOWN);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="_t_f_t-_reader_8ino.html#a66ce2d3364f57a5b270971f2e3075fcb">   37</a></span>&#160;Adafruit_ILI9341 <a class="code" href="_t_f_t-_reader_8ino.html#a66ce2d3364f57a5b270971f2e3075fcb">ili9341</a> = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST); </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="_t_f_t-_reader_8ino.html#a81e601cdff0f07a04a4ce1debde513ea">   38</a></span>&#160;U8G2_FOR_ADAFRUIT_GFX <a class="code" href="_t_f_t-_reader_8ino.html#a81e601cdff0f07a04a4ce1debde513ea">u8g2_for_adafruit_gfx</a>; </div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keywordtype">void</span> loop() {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordflow">if</span>(menu.m_menuMode){</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (btnUp.clicked()){</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        menu.selectPrevious();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (btnSelect.clicked()){</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        menu.openSelectedFile();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (btnDown.clicked()){</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        menu.selectNext();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="_t_f_t-_reader_8ino.html#a2df7609c1f59770639d47afe786bd17c">   40</a></span>&#160;TFTDisplay <a class="code" href="_t_f_t-_reader_8ino.html#a2df7609c1f59770639d47afe786bd17c">tft</a>(240, 320, &amp;<a class="code" href="_t_f_t-_reader_8ino.html#a66ce2d3364f57a5b270971f2e3075fcb">ili9341</a>, &amp;<a class="code" href="_t_f_t-_reader_8ino.html#a81e601cdff0f07a04a4ce1debde513ea">u8g2_for_adafruit_gfx</a>); </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">   41</a></span>&#160;TFTGUI <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>(<a class="code" href="_t_f_t-_reader_8ino.html#a2df7609c1f59770639d47afe786bd17c">tft</a>); </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keywordtype">void</span> setup() {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  Serial.begin(9600);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  SD.begin(<a class="code" href="_t_f_t-_reader_8ino.html#aa30910e372ddbd6b08bf8be280af2600">PIN_SD_CS</a>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="_t_f_t-_reader_8ino.html#a2df7609c1f59770639d47afe786bd17c">tft</a>.begin();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.begin();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> loop() {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.m_menuMode){</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (btnUp.clicked()){</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        menu.printPreviousPage();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.selectPrevious();</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (btnSelect.holded()){</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        menu.openMenu();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (btnSelect.clicked()){</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.openSelectedFile();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (btnDown.clicked()){</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        menu.printNextPage();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.selectNext();</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (btnUp.clicked()){</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.printPreviousPage();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (btnSelect.holded()){</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.openMenu();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (btnDown.clicked()){</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a>.printNextPage();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
+<div class="ttc" id="a_t_f_t-_reader_8ino_html_a2df7609c1f59770639d47afe786bd17c"><div class="ttname"><a href="_t_f_t-_reader_8ino.html#a2df7609c1f59770639d47afe786bd17c">tft</a></div><div class="ttdeci">TFTDisplay tft(240, 320, &amp;ili9341, &amp;u8g2_for_adafruit_gfx)</div><div class="ttdoc">TFT Display object, supports text printing.</div></div>
+<div class="ttc" id="a_t_f_t-_reader_8ino_html_a66ce2d3364f57a5b270971f2e3075fcb"><div class="ttname"><a href="_t_f_t-_reader_8ino.html#a66ce2d3364f57a5b270971f2e3075fcb">ili9341</a></div><div class="ttdeci">Adafruit_ILI9341 ili9341</div><div class="ttdoc">Lower level TFT Display object.</div><div class="ttdef"><b>Definition:</b> <a href="_t_f_t-_reader_8ino_source.html#l00037">TFT-Reader.ino:37</a></div></div>
+<div class="ttc" id="a_t_f_t-_reader_8ino_html_a81e601cdff0f07a04a4ce1debde513ea"><div class="ttname"><a href="_t_f_t-_reader_8ino.html#a81e601cdff0f07a04a4ce1debde513ea">u8g2_for_adafruit_gfx</a></div><div class="ttdeci">U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx</div><div class="ttdoc">Font system initialization.</div><div class="ttdef"><b>Definition:</b> <a href="_t_f_t-_reader_8ino_source.html#l00038">TFT-Reader.ino:38</a></div></div>
+<div class="ttc" id="a_t_f_t-_reader_8ino_html_a97bef85f1191ac22ccb11a0c061bfd67"><div class="ttname"><a href="_t_f_t-_reader_8ino.html#a97bef85f1191ac22ccb11a0c061bfd67">menu</a></div><div class="ttdeci">TFTGUI menu(tft)</div><div class="ttdoc">Menu object, can scan SD card and display files.</div></div>
+<div class="ttc" id="a_t_f_t-_reader_8ino_html_aa30910e372ddbd6b08bf8be280af2600"><div class="ttname"><a href="_t_f_t-_reader_8ino.html#aa30910e372ddbd6b08bf8be280af2600">PIN_SD_CS</a></div><div class="ttdeci">#define PIN_SD_CS</div><div class="ttdoc">Chip Select pin for SD-card reader.</div><div class="ttdef"><b>Definition:</b> <a href="_t_f_t-_reader_8ino_source.html#l00019">TFT-Reader.ino:19</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_ee49014ee30b475461e5afc910888cd4.html">firmwares</a></li><li class="navelem"><a class="el" href="dir_172992392e355500619d553fe30da012.html">TFT-Reader</a></li><li class="navelem"><b>TFT-Reader.ino</b></li>
+    <li class="navelem"><a class="el" href="dir_ee49014ee30b475461e5afc910888cd4.html">firmwares</a></li><li class="navelem"><a class="el" href="dir_172992392e355500619d553fe30da012.html">TFT-Reader</a></li><li class="navelem"><a class="el" href="_t_f_t-_reader_8ino.html">TFT-Reader.ino</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.0 </li>
   </ul>
 </div>
